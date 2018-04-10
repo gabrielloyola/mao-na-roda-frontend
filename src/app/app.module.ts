@@ -1,3 +1,4 @@
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,6 +9,7 @@ import { AppComponent } from './app.component';
 
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
+import { ApiService } from './api.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,7 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
     }),
     AgmJsMarkerClustererModule
   ],
-  providers: [],
+  providers: [ApiService, HttpClient, HttpHandler],
   bootstrap: [AppComponent]
 })
 
