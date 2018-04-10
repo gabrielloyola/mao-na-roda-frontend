@@ -5,8 +5,12 @@
   </h1>
 </div>
 <h2>Here is a map: </h2>
-<!-- the component as the initial center of the map: -->
-<agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
-  <agm-marker *ngFor="let marker of markers" [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>
-</agm-marker-cluster>
+
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="14">
+  <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
+    <agm-marker *ngFor="let marker of markers" [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>
+  </agm-marker-cluster>
+</agm-map>
+
+
 
