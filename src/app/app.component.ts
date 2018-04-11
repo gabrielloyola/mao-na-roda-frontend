@@ -24,11 +24,15 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.problem_markers = this.apiService.getAllProblems();
-    this.solution_markers = this.apiService.getAllProblems();
-
+    this.getProblems();
+  }
+  
+  getProblems() {
+    this.apiService.getAllProblems().subscribe(
+      data => { this.problem_markers = data },
+      err => console.error(err),
+      () => console.log('done loading problems')
+    );
     console.log(this.problem_markers);
-    console.log(this.solution_markers);
-    
   }
 }

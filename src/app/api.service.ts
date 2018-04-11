@@ -10,23 +10,25 @@ import 'rxjs/add/operator/catch';
 
 const API_URL = environment.apiUrl;
 
+
 @Injectable()
 export class ApiService {
+  private _headers = new HttpHeaders().set('Content-Type', 'application/json');
+  public auth_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MjM0OTAzNDR9.Z3-xQuOs3vO1w5F3533fKuDRpLIhIQRCtdvEKzmj9VI';
 
-  constructor(
-    private http: HttpClient
-  ) {
-    const httpHeaders = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MjM0OTAzNDR9.Z3-xQuOs3vO1w5F3533fKuDRpLIhIQRCtdvEKzmj9VI');
+  constructor(private http: HttpClient) { }
+
+  public getAllProblems(): Observable<any> {;
+    return this.http.get(API_URL + '/problema', {
+      headers : {
+        "Authorization":this.auth_token
+      } 
+    });
   }
-
-  public getAllProblems(): Observable<any> {
-    return this.http.get(API_URL + '/problema', {responseType: 'json'});
-  }
-
+  
   public getAllSolutions(): Observable<any> {
-    return this.http.get(API_URL + '/solucao', {responseType: 'json'});
+    const headers = this._headers.append('Authorization', this.auth_token);
+    return this.http.get(API_URL + '/solucao');
   }
 
 }

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { ApiService } from './api.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     CommonModule,
     FormsModule,
     AgmCoreModule.forRoot({
@@ -24,7 +26,7 @@ import { ApiService } from './api.service';
     }),
     AgmJsMarkerClustererModule
   ],
-  providers: [ApiService, HttpClient, HttpHandler],
+  providers: [ApiService, HttpClient],
   bootstrap: [AppComponent]
 })
 
