@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     this.apiService.getAllProblems().subscribe(
       data => { this.problem_markers = data; },
       err => console.error(err),
-      () => console.log('done loading problems')
+      () => console.log(this.problem_markers)
     );
   }
 }

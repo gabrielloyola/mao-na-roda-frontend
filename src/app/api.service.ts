@@ -13,21 +13,26 @@ const API_URL = environment.apiUrl;
 
 @Injectable()
 export class ApiService {
-  private auth_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1MjM1ODAwNzl9.j3fL2CV7Cwted0MVOBgn5zTUPVAhY9JoiEjBUaMfeZU';
-  private _headers = new HttpHeaders;
+  private auth_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1MjM2ODE0ODR9.nTOCHQKWy21AqtrUPYPgTh_ip74b-9FCEnkEiXAw19s';
   
-  constructor(private http: HttpClient) {
-    this._headers.set('Authorization', this.auth_token);
-  }
+  constructor(private http: HttpClient) { }
 
   public getAllProblems(): Observable<any> {
-    console.log(this._headers);
-    return this.http.get(API_URL + '/problema', { headers: this._headers });
+    return this.http.get('/problema', { 
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": this.auth_token
+      }
+    });
   }
   
   public getAllSolutions(): Observable<any> {
-    const headers = this._headers.append('Authorization', this.auth_token);
-    return this.http.get(API_URL + '/solucao');
+    return this.http.get('/solucao', { 
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": this.auth_token
+      }
+    });
   }
 
 }
