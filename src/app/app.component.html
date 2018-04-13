@@ -2,7 +2,7 @@
   <img class="logo" src="../assets/img/mao_na_roda_white.png"/>
   <mat-card class="clustermap-card">
     <mat-card-content>
-      <agm-map>
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
         <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
           <agm-marker *ngFor="let marker of problem_markers" [latitude]="marker.lat_inicio" [longitude]="marker.long_inicio"></agm-marker>
         </agm-marker-cluster>
