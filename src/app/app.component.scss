@@ -1,3 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700');
+
+* {
+  font-family: 'Montserrat';
+  color: white;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #4E9CB5;
+  height: 100vh;
+}
+
+.logo {
+  margin-top: 10px;
+  width: 70px;
+  height: auto;
+}
+
+.mat-card {
+  margin: 10px;
+  background-color: white;
+  padding: 10px;
+}
+
+.clustermap-card {
+  width: 80%;
+}
+
+.other {
+  display: flex;
+  width: 83%;
+  .heatmap-card {
+    width: 50%;
+  }
+  .graphic-card {
+    width: 50%;
+  }
+}
+
+
 agm-map {
-    height: 500px;
+  height: 35vh;
 }

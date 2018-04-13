@@ -1,16 +1,36 @@
-<div style="text-align:center; display:flex; justify-content:center; align-items:center">
-  <img width="50" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<div class="main">
+  <img class="logo" src="../assets/img/mao_na_roda_white.png"/>
+  <mat-card class="clustermap-card">
+    <mat-card-content>
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+        <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
+          <agm-marker *ngFor="let marker of markers" [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>
+        </agm-marker-cluster>
+      </agm-map>
+    </mat-card-content>
+  </mat-card>
+  <div class="other">
+    <mat-card class="heatmap-card">
+      <mat-card-content>
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+            <agm-marker *ngFor="let marker of markers" [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>
+        </agm-map>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="graphic-card">
+      <mat-card-content>
+          <canvas baseChart width="100%" height="50vh"
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"></canvas>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
-<h2>Here is a map: </h2>
 
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-  <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
-    <agm-marker *ngFor="let marker of problem_markers" [latitude]="marker.lat_inicio" [longitude]="marker.long_inicio"></agm-marker>
-  </agm-marker-cluster>
-</agm-map>
 
 
 
