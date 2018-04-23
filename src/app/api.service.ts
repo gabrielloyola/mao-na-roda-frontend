@@ -13,9 +13,11 @@ const API_URL = environment.apiUrl;
 
 @Injectable()
 export class ApiService {
-  private auth_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1MjM2ODE0ODR9.nTOCHQKWy21AqtrUPYPgTh_ip74b-9FCEnkEiXAw19s';
+  private auth_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1MjQ1MzExODl9.TWI8S4gznzDPQ8_geCmJCHosJmI9smPcpL5gNrRMfxo';
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.http.get(API_URL)
+  }
 
   public getAllProblems(): Observable<any> {
     return this.http.get('/problema', { 
@@ -27,7 +29,7 @@ export class ApiService {
   }
   
   public getAllSolutions(): Observable<any> {
-    return this.http.get('/solucao', { 
+    return this.http.get(API_URL + '/solucao', { 
       headers: {
         "Content-Type": "application/json",
         "Authorization": this.auth_token

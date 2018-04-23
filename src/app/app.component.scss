@@ -25,22 +25,12 @@
   padding: 10px;
 }
 
-.clustermap-card {
-  width: 80%;
+mat-tab-group {
+  width: 90%;
 }
 
-.other {
-  display: flex;
-  width: 83%;
-  .heatmap-card {
-    width: 50%;
-  }
-  .graphic-card {
-    width: 50%;
-  }
-}
-
-
+.graphic-card,
 agm-map {
-  height: 35vh;
+  height: 70vh;
+  width: auto;
 }
