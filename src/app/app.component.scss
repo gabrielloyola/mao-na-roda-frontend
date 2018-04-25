@@ -6,31 +6,18 @@
 }
 
 .main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: #4E9CB5;
   height: 100vh;
+  .inner {
+    height: calc(100vh - 64px);
+  }
+  mat-toolbar {
+    padding: 0 40px;
+    .logo {
+      margin-top: 10px;
+      width: 60px;
+      height: auto;
+    }
+  }
 }
 
-.logo {
-  margin-top: 10px;
-  width: 70px;
-  height: auto;
-}
-
-.mat-card {
-  margin: 10px;
-  background-color: white;
-  padding: 10px;
-}
-
-mat-tab-group {
-  width: 90%;
-}
-
-.graphic-card,
-agm-map {
-  height: 70vh;
-  width: auto;
-}

@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    margin: unset;
+  margin: unset;
+}
+
+.mat-card {
+  margin: 10px;
+  background-color: white;
+  padding: 10px;
+}
+
+.graphic-card,
+agm-map {
+  height: 70vh;
+  width: auto;
 }

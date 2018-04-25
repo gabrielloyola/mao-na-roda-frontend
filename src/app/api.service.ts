@@ -13,7 +13,7 @@ const API_URL = environment.apiUrl;
 
 @Injectable()
 export class ApiService {
-  private auth_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1MjQ1MzExODl9.TWI8S4gznzDPQ8_geCmJCHosJmI9smPcpL5gNrRMfxo';
+  private auth_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1MjQ3MDc0NjZ9.jpBuneInO8uxxwzDbdaIVMkZHC4A3hMhTzPzTrPfPUo';
   
   constructor(private http: HttpClient) {
     this.http.get(API_URL)

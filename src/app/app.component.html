@@ -1,40 +1,26 @@
-<div class="main">
-  <img class="logo" src="../assets/img/mao_na_roda_white.png"/>
-  <mat-tab-group>
-    <mat-tab label="Marcações">
-      <mat-card class="clustermap-card">
-        <mat-card-content>
-          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-            <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
-              <agm-marker *ngFor="let marker of problem_markers" [latitude]="marker.lat_inicio" [longitude]="marker.long_inicio"></agm-marker>
-            </agm-marker-cluster>
-          </agm-map>
-        </mat-card-content>
-      </mat-card>
-    </mat-tab>
-    <mat-tab label="Heatmap">
-      <mat-card class="heatmap-card">
-        <mat-card-content>
-          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-            <agm-marker *ngFor="let marker of problem_markers" [latitude]="marker.lat_inicio" [longitude]="marker.long_inicio"></agm-marker>
-          </agm-map>
-        </mat-card-content>
-      </mat-card>
-    </mat-tab>
-    <mat-tab label="Gráfico histórico">
-      <mat-card class="graphic-card">
-        <mat-card-content>
-            <canvas baseChart width="100%" height="35vh"
-              [datasets]="lineChartData"
-              [labels]="lineChartLabels"
-              [options]="lineChartOptions"
-              [colors]="lineChartColors"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"></canvas>
-        </mat-card-content>
-      </mat-card>
-    </mat-tab>
-  </mat-tab-group>
+<div class="main" fxLayout="column" fxLayoutGap="20px">
+  <mat-toolbar fxLayout fxLayoutAlign="space-between center">
+    <a href="/">
+      <img class="logo" src="../assets/img/mao_na_roda_white.png"/>
+    </a>
+    <div>
+      <a mat-button routerLink="clustermap">Cluster Map</a>
+      <a mat-button routerLink="heatmap">Heat Map</a>
+      <a mat-button routerLink="chart">Reports Chart</a>
+    </div>
+    <div>
+      <a href="https://github.com/gabrielloyola/mao-na-roda-frontend">
+        <fa-icon [icon]="['fab', 'github']" size="2x"></fa-icon>
+      </a>
+    </div>
+  </mat-toolbar>
+  
+  <div class="inner">
+    <div fxclass="filters">
+  
+    </div>
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 
