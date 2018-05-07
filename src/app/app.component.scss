@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700');
 
+$grey_font: #505050;
+
 * {
   font-family: 'Montserrat';
   color: white;
@@ -10,6 +12,13 @@
   height: 100vh;
   .inner {
     height: calc(100vh - 64px);
+    padding: 0 40px 40px;
+    
+    .filter {
+      * {
+        color: $grey_font;
+      }
+    }
   }
   mat-toolbar {
     padding: 0 40px;

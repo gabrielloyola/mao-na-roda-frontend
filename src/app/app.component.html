@@ -15,11 +15,15 @@
     </div>
   </mat-toolbar>
   
-  <div class="inner">
-    <div fxclass="filters">
-  
+  <div fxLayout class="inner">
+    <mat-card class="filter" fxFlex="20%">
+      <mat-card-content>
+        <h2>Filtrar</h2>
+      </mat-card-content>
+    </mat-card>
+    <div fxFlex="80%">
+      <router-outlet></router-outlet>
     </div>
-    <router-outlet></router-outlet>
   </div>
 </div>
 
