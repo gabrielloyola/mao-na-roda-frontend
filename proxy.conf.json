@@ -1,8 +1,8 @@
 {
-  "/problema": {
+  "/problema*": {
     "target": "https://mao-na-roda-maycowmeira1.c9users.io",
     "changeOrigin": true,
-    "secure": true,
+    "secure": false,
     "logLevel": "debug"
   }
 }

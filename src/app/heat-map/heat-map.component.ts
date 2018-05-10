@@ -16,8 +16,8 @@ export class HeatMapComponent implements OnInit {
   constructor(
     private apiService: ApiService
   ) {
-    this.lat =  -25.436011;
-    this.lng = -49.271747;
+    this.lat = -25.442942; 
+    this.lng = -49.275880;
     this.zoom = 14;
   }
 
