@@ -1,7 +1,7 @@
 <mat-card class="heatmap-card">
   <mat-card-content>
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-      <agm-marker *ngFor="let marker of problem_markers" [latitude]="marker.lat_inicio" [longitude]="marker.long_inicio"></agm-marker>
-    </agm-map>
+    <ngui-map zoom="{{ zoom }}" center="{{ lat }}, {{ lng }}" style="height: 75vh;">
+      <heatmap-layer [data]="problem_markers"></heatmap-layer>
+    </ngui-map>
   </mat-card-content>
 </mat-card>

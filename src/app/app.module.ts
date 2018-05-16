@@ -20,6 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
+import { NguiMapModule } from '@ngui/map';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -71,7 +72,8 @@ const appRoutes: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDS7Z96FryfrEI2XBCJEBnVKMY3Qw3tMcE'
     }),
-    AgmJsMarkerClustererModule
+    AgmJsMarkerClustererModule,
+    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyDS7Z96FryfrEI2XBCJEBnVKMY3Qw3tMcE'})
   ],
   providers: [ApiService, HttpClient],
   bootstrap: [AppComponent]

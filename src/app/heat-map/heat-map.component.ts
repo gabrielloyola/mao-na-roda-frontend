@@ -1,5 +1,7 @@
 import { ApiService } from './../api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { HeatmapLayer } from '@ngui/map';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-heat-map',
@@ -13,6 +15,11 @@ export class HeatMapComponent implements OnInit {
 
   public problem_markers: any = [];
 
+  @ViewChild(HeatmapLayer) heatmapLayer: HeatmapLayer;
+  heatmap: google.maps.visualization.HeatmapLayer;
+  map: google.maps.Map;
+  points = [];
+  
   constructor(
     private apiService: ApiService
   ) {
@@ -20,15 +27,23 @@ export class HeatMapComponent implements OnInit {
     this.lng = -49.275880;
     this.zoom = 14;
   }
-
-
-  ngOnInit(): void {
-    this.getProblems();
-  }
   
-  getProblems() {
+  
+  ngOnInit() {
+    this.getProblems();
+    this.heatmapLayer['initialized$'].subscribe(heatmap => {
+      this.heatmap = heatmap;
+      this.map = this.heatmap.getMap();
+    });
+  }
+
+  private getProblems() {
     this.apiService.getAllProblems().subscribe(
-      data => { this.problem_markers = data; },
+      data => { 
+        data.forEach(marker => {
+          this.points.push(new google.maps.LatLng(marker.lat_inicio, marker.long_inicio));
+        });
+      },
       err => console.error(err)
     );
   }
