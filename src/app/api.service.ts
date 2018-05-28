@@ -3,38 +3,51 @@ import { environment } from '../environments/environment';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { HttpHeaders, HttpParams } from '@angular/common/http'; 
 import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { forkJoin } from "rxjs/observable/forkJoin";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { error } from 'util';
+import { MatSnackBar } from '@angular/material';
 
 const API_URL = environment.apiUrl;
 
-
 @Injectable()
 export class ApiService {
-  private auth_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1MjY1OTU4OTN9.w1GxfQ2KM5ulLfeAeuVqb7lCBzbsLn3-_8kGTNvlkew';
-  
-  constructor(private http: HttpClient) {
-    this.http.get(API_URL)
-  }
+  private auth_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1Mjc1Mzg1NDh9.LYaNNjjHqPnWn6WZoGP_bsxlORkbzu0569M-fYlbsjU';
 
-  public getAllProblems(): Observable<any> {
+  constructor(
+    private http: HttpClient,
+    public snackBar: MatSnackBar
+  ) {
+    this.http.get(API_URL);
+    this.loadProblems();
+  }
+  private _markersBS = new BehaviorSubject(undefined);
+
+  private requestProblems(params?): Observable<any> {
     return this.http.get('/problema', { 
       headers: {
         "Content-Type": "application/json",
         "Authorization": this.auth_token
-      }
-    });
-  }
-  
-  public getAllSolutions(): Observable<any> {
-    return this.http.get(API_URL + '/solucao', { 
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": this.auth_token
-      }
+      },
+      params: params
     });
   }
 
+  public loadProblems(params?, showMessage = false) {
+    this.requestProblems(params).subscribe(
+      data => {
+        this._markersBS.next(data);
+        if(showMessage) {
+          this.snackBar.open("Filtro aplicado", "Fechar", {
+            duration: 5000,
+          });
+        }
+      },
+      error => console.log(error)
+    )
+  }
+
+  public getProblems()  {
+    return this._markersBS.asObservable();
+  }
 }

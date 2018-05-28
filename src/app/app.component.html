@@ -3,11 +3,10 @@
     <a href="/">
       <img class="logo" src="../assets/img/mao_na_roda_black.png"/>
     </a>
-    <div>
-      <a mat-button routerLink="clustermap">Cluster Map</a>
-      <a mat-button routerLink="heatmap">Heat Map</a>
-      <a mat-button routerLink="chart">Reports Chart</a>
-    </div>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle routerLink="clustermap" [checked]="true">Mapa</mat-button-toggle>
+      <mat-button-toggle routerLink="chart" [checked]="false">Histórico</mat-button-toggle>
+    </mat-button-toggle-group>
     <div>
       <a href="https://github.com/gabrielloyola/mao-na-roda-frontend">
         <fa-icon [icon]="['fab', 'github']"></fa-icon>
@@ -16,27 +15,63 @@
   </mat-toolbar>
   
   <div fxLayout class="inner">
-    <mat-card class="filter" fxFlex="20%">
-      <mat-card-title>Filtrar</mat-card-title>
-      <mat-card-content>
-        <mat-form-field>
-          <mat-select placeholder="Tipo de marcação">
-            <mat-option>Todos</mat-option>
-            <mat-option *ngFor="let type of types" [value]="type">{{ type.viewValue }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+    <mat-card
+      [formGroup]="filterForm"
+      class="filter"
+      fxFlex="20%"
+      fxLayout="column"
+      fxLayoutGap="25px"
+    >
+      <mat-card-title>Filtrar mapa</mat-card-title>
+      <mat-card-content fxLayout="column" fxLayoutGap="25px">
+        <mat-card-subtitle>Visualizando problemas</mat-card-subtitle>
+        <div fxLayout="column" fxLayoutGap="10px">
+          <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+            <mat-slide-toggle
+            fxFlex="20"
+            (change)="onChangeSolved($event)"
+            formControlName="solvedProblems"
+            ></mat-slide-toggle>
+            <div fxFlex>Solucionados</div>
+          </div>
+          
+          <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+            <mat-slide-toggle
+            fxFlex="20"
+            (change)="onChangeUnsolved($event)"
+            formControlName="unsolvedProblems"
+            ></mat-slide-toggle>
+            <div fxFlex>Não solucionados</div>
+          </div>
+        </div>
+        <mat-card-subtitle>Data do reporte</mat-card-subtitle>
+        <div fxLayout="column">
+          <mat-form-field>
+            <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+            <input
+              matInput
+              [matDatepicker]="pickerFrom"
+              placeholder="De"
+              (dateChange)="onDateChange()"
+              formControlName="problemsFrom"
+            >
+            <mat-datepicker #pickerFrom></mat-datepicker>
+          </mat-form-field>
         
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker1" placeholder="De">
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker2" placeholder="Até">
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
+          <mat-form-field>
+            <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+            <input
+              matInput
+              [matDatepicker]="pickerTo"
+              placeholder="Até"
+              (dateChange)="onDateChange()"
+              formControlName="problemsTo"
+            >
+            <mat-datepicker
+              #pickerTo
+            ></mat-datepicker>
+          </mat-form-field>
+        </div>
 
       </mat-card-content>
     </mat-card>

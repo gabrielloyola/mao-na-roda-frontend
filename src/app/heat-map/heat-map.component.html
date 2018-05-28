@@ -1,7 +1,7 @@
 <mat-card class="heatmap-card">
   <mat-card-content>
     <ngui-map zoom="{{ zoom }}" center="{{ lat }}, {{ lng }}" style="height: 75vh;">
-      <heatmap-layer [data]="problem_markers"></heatmap-layer>
+      <heatmap-layer [data]="points"></heatmap-layer>
     </ngui-map>
   </mat-card-content>
 </mat-card>
