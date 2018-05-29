@@ -13,10 +13,15 @@ import { MatSnackBar } from '@angular/material';
 export class AppComponent {
   public markers;
   public filterForm: FormGroup;
-  
+  public params = {
+    prob_start: null,
+    prob_end: null
+  };
+  public slice;
+
   constructor(
     private _fb: FormBuilder,
-    private apiService: ApiService,
+    private apiService: ApiService
   ) {
     fontawesome.library.add(faGithub);
     this.filterForm = this._fb.group({
@@ -25,18 +30,43 @@ export class AppComponent {
       problemsFrom: [null],
       problemsTo: [null]
     });
-    this.setup();
   }
 
-  private setup() {
-    this.markers = this.apiService.getProblems();
+  public onChangeDate() {
+    this.params.prob_start = this.filterForm.controls.problemsFrom.value;
+    this.params.prob_end = this.filterForm.controls.problemsTo.value;
+    this.apiService.loadProblems(this.params, this.slice);
   }
 
-  public onDateChange() {
-    let params = {
-      prob_start: this.filterForm.controls.problemsFrom.value,
-      prob_end: this.filterForm.controls.problemsTo.value,
+  public onChangeSolved(event) {
+    if (event.checked) {
+      if (this.filterForm.controls.unsolvedProblems.value) {
+        this.slice = '';
+      } else {
+        this.slice = 'solved';
+      }
+    } else {
+      if (!this.filterForm.controls.unsolvedProblems.value) {
+        this.filterForm.controls.unsolvedProblems.setValue(true);
+      }
+      this.slice = 'unsolved';
     }
-    this.apiService.loadProblems(params, true);
+    this.apiService.loadProblems(this.params, this.slice);
+  }
+
+  public onChangeUnsolved(event) {
+    if (event.checked) {
+      if (this.filterForm.controls.solvedProblems.value) {
+        this.slice = '';
+      } else {
+        this.slice = 'unsolved';
+      }
+    } else {
+      if (!this.filterForm.controls.solvedProblems.value) {
+        this.filterForm.controls.solvedProblems.setValue(true);
+      }
+      this.slice = 'solved';
+    }
+    this.apiService.loadProblems(this.params, this.slice);
   }
 }

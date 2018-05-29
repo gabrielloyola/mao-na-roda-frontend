@@ -3,9 +3,9 @@
     <a href="/">
       <img class="logo" src="../assets/img/mao_na_roda_black.png"/>
     </a>
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <mat-button-toggle routerLink="clustermap" [checked]="true">Mapa</mat-button-toggle>
-      <mat-button-toggle routerLink="chart" [checked]="false">Histórico</mat-button-toggle>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="{{ rla.isActive? 'map' : 'chart' }}">
+      <mat-button-toggle value="map" routerLink="clustermap" routerLinkActive #rla="routerLinkActive">Mapa</mat-button-toggle>
+      <mat-button-toggle value="chart" routerLink="chart">Histórico</mat-button-toggle>
     </mat-button-toggle-group>
     <div>
       <a href="https://github.com/gabrielloyola/mao-na-roda-frontend">
@@ -21,6 +21,7 @@
       fxFlex="20%"
       fxLayout="column"
       fxLayoutGap="25px"
+      *ngIf="rla.isActive"
     >
       <mat-card-title>Filtrar mapa</mat-card-title>
       <mat-card-content fxLayout="column" fxLayoutGap="25px">
@@ -52,7 +53,7 @@
               matInput
               [matDatepicker]="pickerFrom"
               placeholder="De"
-              (dateChange)="onDateChange()"
+              (dateChange)="onChangeDate()"
               formControlName="problemsFrom"
             >
             <mat-datepicker #pickerFrom></mat-datepicker>
@@ -64,7 +65,7 @@
               matInput
               [matDatepicker]="pickerTo"
               placeholder="Até"
-              (dateChange)="onDateChange()"
+              (dateChange)="onChangeDate()"
               formControlName="problemsTo"
             >
             <mat-datepicker
@@ -72,7 +73,20 @@
             ></mat-datepicker>
           </mat-form-field>
         </div>
-
+      </mat-card-content>
+    </mat-card>
+    <mat-card
+      [formGroup]="filterForm"
+      class="filter"
+      fxFlex="20%"
+      fxLayout="column"
+      fxLayoutGap="25px"
+      *ngIf="!rla.isActive"
+    >
+      <mat-card-title>Filtrar gráfico</mat-card-title>
+      <mat-card-content fxLayout="column" fxLayoutGap="25px">
+        <mat-card-subtitle>Mês inicial</mat-card-subtitle>
+        <mat-card-subtitle>Mês final</mat-card-subtitle>
       </mat-card-content>
     </mat-card>
     <div fxFlex="80%">

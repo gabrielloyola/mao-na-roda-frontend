@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { ApiService } from '../api.service';
 import { error } from 'util';
@@ -20,13 +20,13 @@ export class ClusterMapComponent {
       lat: -25.442942,
       lng: -49.275880,
       zoom: 14
-    }
+    };
   }
 
   private setup() {
     this.apiService.getProblems().subscribe(
       data => this.markers = data,
-      error => console.log(error)
-    )
+      err => console.log(error)
+    );
   }
 }
