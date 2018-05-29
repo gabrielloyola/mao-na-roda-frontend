@@ -1,4 +1,4 @@
-import { ApiService } from './../api.service';
+/* import { ApiService } from './../api.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { HeatmapLayer } from '@ngui/map';
 
@@ -18,16 +18,16 @@ export class HeatMapComponent implements OnInit {
   heatmap: google.maps.visualization.HeatmapLayer;
   map: google.maps.Map;
   points = [];
-  
+
   constructor(
     private apiService: ApiService
   ) {
-    this.lat = -25.442942; 
+    this.lat = -25.442942;
     this.lng = -49.275880;
     this.zoom = 14;
   }
-  
-  
+
+
   ngOnInit() {
     // this.getProblems();
     this.heatmapLayer['initialized$'].subscribe(heatmap => {
@@ -38,12 +38,13 @@ export class HeatMapComponent implements OnInit {
 
   /* private getProblems() {
     this.apiService.loadProblems().subscribe(
-      data => { 
+      data => {
         data.forEach(marker => {
           this.points.push(new google.maps.LatLng(marker.lat_inicio, marker.long_inicio));
         });
       },
       err => console.error(err)
     );
-  } */
+  }
 }
+*/
