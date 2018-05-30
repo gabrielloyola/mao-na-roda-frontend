@@ -7,9 +7,9 @@ export class SolvedFilterPipe implements PipeTransform {
 
   transform(markers: any, slice: string): any {
     if (slice === 'solved') {
-      return markers.filter( m => Object.keys(m.solucao).length > 0 );
+      return markers.filter( m => m.solucao );
     } else if (slice === 'unsolved') {
-      return markers.filter( m => Object.keys(m.solucao).length === 0 );
+      return markers.filter( m => !m.solucao );
     }
     return markers;
   }

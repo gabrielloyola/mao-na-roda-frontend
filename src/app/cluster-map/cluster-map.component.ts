@@ -19,7 +19,7 @@ export class ClusterMapComponent {
     this.mapConfig = {
       lat: -25.442942,
       lng: -49.275880,
-      zoom: 14
+      zoom: 11
     };
   }
 
