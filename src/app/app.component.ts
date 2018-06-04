@@ -20,6 +20,10 @@ export class AppComponent {
     prob_start: null,
     prob_end: null
   };
+  public chartParams = {
+    freq_start: null,
+    freq_end: null
+  }
   public slice;
 
   constructor(
@@ -77,10 +81,9 @@ export class AppComponent {
     this.apiService.loadProblems(this.mapParams, this.slice);
   }
 
-  public chosenMonthHandler(normlizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.filterChartForm.controls.initialMonth.value;
-    ctrlValue.month(normlizedMonth.month());
-    this.filterChartForm.controls.initialMonth.setValue(ctrlValue);
-    datepicker.close();
+  public onChangeMonth() {
+    this.chartParams.freq_start = this.filterChartForm.controls.initialMonth.value;
+    this.chartParams.freq_end = this.filterChartForm.controls.endMonth.value;
+    this.apiService.loadFrequencies(this.chartParams);
   }
 }

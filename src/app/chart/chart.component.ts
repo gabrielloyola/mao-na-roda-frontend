@@ -39,26 +39,8 @@ export class ChartComponent {
   }
 
   private setup() {
-    this.apiService.getProblemFrequencies().subscribe(
-      data => {
-        if (data) {
-          this.lineChartData.push({
-            data,
-            label: 'Problemas'
-          });
-        }
-      },
-      error => console.log(error)
-    );
-    this.apiService.getSolutionFrequencies().subscribe(
-      data => {
-        if (data) {
-          this.lineChartData.push({
-            data,
-            label: 'Soluções'
-          });
-        }
-      },
+    this.apiService.getFrequencies().subscribe(
+      data => this.lineChartData = data,
       error => console.log(error)
     );
     this.apiService.getFrequenciesLabels().subscribe(

@@ -29,12 +29,10 @@ export class ApiService {
   ) {
     this.http.get(API_URL);
     this.loadProblems(null, '', false);
-    this.loadProblemFrequencies(null, false);
-    this.loadSolutionFrequencies(null, false);
+    this.loadFrequencies(null, false);
   }
   private _markersBS = new BehaviorSubject(undefined);
-  private _problemFrequenciesBS = new BehaviorSubject(undefined);
-  private _solutionFrequenciesBS = new BehaviorSubject(undefined);
+  private _frequenciesBS = new BehaviorSubject(undefined);
   private _frequenciesLabelsBS = new BehaviorSubject(undefined);
 
   private requestProblems(params?): Observable<any> {
@@ -79,33 +77,25 @@ export class ApiService {
     );
   }
 
-  public loadProblemFrequencies(params?, showMessage = true) {
-    this.requestProblemFrequencies(params).subscribe(
-      data => {
-        const frequencies = [];
-        const labels = [];
-        for (const freq of data) {
-          frequencies.push(freq.valor);
+  public loadFrequencies(params?, showMessage = true) {
+    let frequencies = [];
+    const labels = [];
+    forkJoin(
+      this.requestProblemFrequencies(params),
+      this.requestSolutionFrequencies(params)
+    ).subscribe(([pf, sf]) => {
+        const problemFreq = [];
+        const solutionFreq = [];
+        for (const freq of pf) {
+          problemFreq.push(freq.valor);
           labels.push(months[freq.mes] + '/' + freq.ano);
         }
-        this._problemFrequenciesBS.next(frequencies);
+        for (const freq of sf) {
+          solutionFreq.push(freq.valor);
+        }
+        frequencies = [{data: problemFreq, label: 'Problemas'}, {data: solutionFreq, label: 'Soluções'}];
+        this._frequenciesBS.next(frequencies);
         this._frequenciesLabelsBS.next(labels);
-        if (showMessage) {
-          this.showFilterMessage();
-        }
-      },
-      err => console.log(err)
-    );
-  }
-
-  public loadSolutionFrequencies(params?, showMessage = true) {
-    this.requestSolutionFrequencies(params).subscribe(
-      data => {
-        const frequencies = [];
-        for (const freq of data) {
-          frequencies.push(freq.valor);
-        }
-        this._solutionFrequenciesBS.next(frequencies);
         if (showMessage) {
           this.showFilterMessage();
         }
@@ -124,12 +114,8 @@ export class ApiService {
     return this._markersBS.asObservable();
   }
 
-  public getProblemFrequencies() {
-    return this._problemFrequenciesBS.asObservable();
-  }
-
-  public getSolutionFrequencies() {
-    return this._solutionFrequenciesBS.asObservable();
+  public getFrequencies() {
+    return this._frequenciesBS.asObservable();
   }
 
   public getFrequenciesLabels() {
