@@ -1,0 +1,37 @@
+$grey_font: #505050;
+
+@import "~_variables.scss";
+
+* {
+  color: $grey_font;
+}
+
+.logo {
+  height: 80%;
+}
+
+.main {
+  background-color: #4E9CB5;
+  height: 100vh;
+  .inner {
+    height: calc(100vh - 64px);
+    padding: 0 20px 40px;
+    .filter {
+      * {
+        color: $grey_font;
+      }
+    }
+  }
+  mat-toolbar {
+    padding: 0 40px;
+    .logo {
+      margin-top: 10px;
+      width: 50px;
+      height: auto;
+    }
+  }
+  mat-card-subtitle {
+    font-weight: 500;
+    font-size: 16px;
+  }
+}

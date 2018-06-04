@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: unset;
+}
+
+.mat-card {
+  margin: 10px;
+  background-color: white;
+  padding: 10px;
+  min-height: 100%;
+}
+
+.graphic-card {
+  height: 70vh;
+}
+
+ngui-map,
+agm-map {
+  height: 75vh;
+}

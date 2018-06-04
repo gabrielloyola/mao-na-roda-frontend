@@ -1,20 +1,128 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="main" fxLayout="column" fxLayoutGap="20px">
+  <mat-toolbar fxLayout fxLayoutAlign="space-between center">
+    <a href="/">
+      <img class="logo" src="../assets/img/mao_na_roda_black.png"/>
+    </a>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="{{ rla.isActive? 'map' : 'chart' }}">
+      <mat-button-toggle value="map" routerLink="clustermap" routerLinkActive #rla="routerLinkActive">Mapa</mat-button-toggle>
+      <mat-button-toggle value="chart" routerLink="chart">Histórico</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div>
+      <a href="https://github.com/gabrielloyola/mao-na-roda-frontend">
+        <fa-icon [icon]="['fab', 'github']"></fa-icon>
+      </a>
+    </div>
+  </mat-toolbar>
+  
+  <div fxLayout class="inner">
+    <mat-card
+      [formGroup]="filterMapForm"
+      class="filter"
+      fxFlex="20%"
+      fxLayout="column"
+      fxLayoutGap="25px"
+      *ngIf="rla.isActive"
+    >
+      <mat-card-title>Filtrar mapa</mat-card-title>
+      <mat-card-content fxLayout="column" fxLayoutGap="25px">
+        <mat-card-subtitle>Visualizando problemas</mat-card-subtitle>
+        <div fxLayout="column" fxLayoutGap="10px">
+          <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+            <mat-slide-toggle
+            fxFlex="20"
+            (change)="onChangeSolved($event)"
+            formControlName="solvedProblems"
+            ></mat-slide-toggle>
+            <div fxFlex>Solucionados</div>
+          </div>
+          
+          <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+            <mat-slide-toggle
+            fxFlex="20"
+            (change)="onChangeUnsolved($event)"
+            formControlName="unsolvedProblems"
+            ></mat-slide-toggle>
+            <div fxFlex>Não solucionados</div>
+          </div>
+        </div>
+        <mat-card-subtitle>Data do reporte</mat-card-subtitle>
+        <div fxLayout="column">
+          <mat-form-field>
+            <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+            <input
+              matInput
+              [matDatepicker]="pickerFrom"
+              placeholder="De"
+              (dateChange)="onChangeDate()"
+              formControlName="problemsFrom"
+            >
+            <mat-datepicker #pickerFrom></mat-datepicker>
+          </mat-form-field>
+        
+          <mat-form-field>
+            <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+            <input
+              matInput
+              [matDatepicker]="pickerTo"
+              placeholder="Até"
+              (dateChange)="onChangeDate()"
+              formControlName="problemsTo"
+            >
+            <mat-datepicker
+              #pickerTo
+            ></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card
+      [formGroup]="filterChartForm"
+      class="filter"
+      fxFlex="20%"
+      fxLayout="column"
+      fxLayoutGap="25px"
+      *ngIf="!rla.isActive"
+    >
+      <mat-card-title>Filtrar gráfico</mat-card-title>
+      <mat-card-content fxLayout="column" fxLayoutGap="25px">
+        <mat-card-subtitle>Mês inicial</mat-card-subtitle>
+        <mat-form-field>
+          <mat-datepicker-toggle matSuffix [for]="pickerInitialMonth"></mat-datepicker-toggle>
+          <input
+            matInput
+            [matDatepicker]="pickerInitialMonth"
+            (dateChange)="onChangeMonth()"
+            formControlName="initialMonth"
+          >
+          <mat-datepicker
+            #pickerInitialMonth
+            startView="multi-year"
+            (yearSelected)="chosenYearHandler($event)"
+            (monthSelected)="chosenMonthHandler($event, pickerInitialMonth)"
+          ></mat-datepicker>
+        </mat-form-field>
+        <mat-card-subtitle>Mês final</mat-card-subtitle>
+        <mat-form-field>
+          <mat-datepicker-toggle matSuffix [for]="pickerEndMonth"></mat-datepicker-toggle>
+          <input
+            matInput
+            [matDatepicker]="pickerEndMonth"
+            (dateChange)="onChangeMonth()"
+            formControlName="endMonth"
+          >
+          <mat-datepicker
+            #pickerEndMonth
+            startView="multi-year"
+          ></mat-datepicker>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+    <div fxFlex="80%">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+
+
 

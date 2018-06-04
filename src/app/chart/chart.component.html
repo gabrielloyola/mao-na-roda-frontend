@@ -1,0 +1,11 @@
+<mat-card class="graphic-card">
+  <mat-card-content *ngIf="lineChartData.length > 1">
+      <canvas baseChart
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [colors]="lineChartColors"
+        [legend]="true"
+        [chartType]="'line'">
+      </canvas>
+  </mat-card-content>
+</mat-card>

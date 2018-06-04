@@ -12,9 +12,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "scripts": {
-    "deploy": "ng build --prod && firebase deploy"
   }
 }
-

@@ -1,0 +1,9 @@
+<mat-card class="clustermap-card">
+  <mat-card-content>
+    <agm-map [latitude]="mapConfig.lat" [longitude]="mapConfig.lng" [zoom]="mapConfig.zoom">
+      <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
+        <agm-marker *ngFor="let marker of markers" [latitude]="marker.lat_inicio" [longitude]="marker.long_inicio"></agm-marker>
+      </agm-marker-cluster>
+    </agm-map>
+  </mat-card-content>
+</mat-card>
