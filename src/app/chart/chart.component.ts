@@ -1,46 +1,69 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ApiService } from '../api.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent {
+  public lineChartData = [];
+  public lineChartLabels;
+  public lineChartColors;
 
-  public lineChartData: Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Problemas'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Soluções'}
-  ];
-  public lineChartLabels: Array<any> = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'];
-  public lineChartOptions: any = {
-    responsive: true
-  };
-  public lineChartColors: Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    }
-  ];
-  public lineChartLegend = true;
-  public lineChartType = 'line';
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private apiService: ApiService
+  ) {
+    this.lineChartColors = [
+      { // grey
+        backgroundColor: 'rgba(62, 155, 180, 0.2)',
+        borderColor: 'rgba(62, 155, 180, 1)',
+        pointBackgroundColor: 'rgba(62, 155, 180, 1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(62, 155, 180, 0.8)'
+      },
+      { // dark grey
+        backgroundColor: 'rgba(118, 255, 3, 0.2)',
+        borderColor: 'rgba(118, 255, 3,1)',
+        pointBackgroundColor: 'rgba(118, 255, 3, 1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(118, 255, 3, 1)'
+      }
+    ];
+    this.setup();
   }
 
-
-
+  private setup() {
+    this.apiService.getProblemFrequencies().subscribe(
+      data => {
+        if (data) {
+          this.lineChartData.push({
+            data,
+            label: 'Problemas'
+          });
+        }
+      },
+      error => console.log(error)
+    );
+    this.apiService.getSolutionFrequencies().subscribe(
+      data => {
+        if (data) {
+          this.lineChartData.push({
+            data,
+            label: 'Soluções'
+          });
+        }
+      },
+      error => console.log(error)
+    );
+    this.apiService.getFrequenciesLabels().subscribe(
+      data => this.lineChartLabels = data,
+      error => console.log(error)
+    );
+  }
 }

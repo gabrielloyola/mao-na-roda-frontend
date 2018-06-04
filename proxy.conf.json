@@ -1,12 +1,18 @@
 {
-  "/problema": {
-    "target": "https://mao-na-roda-maycowmeira1.c9users.io",
+  "/problema/*": {
+    "target": {
+      "host": "mao-na-roda-maycowmeira1.c9users.io",
+      "protocol": "https:"
+    },
     "changeOrigin": true,
     "secure": false,
     "logLevel": "debug"
   },
-  "/solucao": {
-    "target": "https://mao-na-roda-maycowmeira1.c9users.io",
+  "/solucao/*": {
+    "target": {
+      "host": "mao-na-roda-maycowmeira1.c9users.io",
+      "protocol": "https:"
+    },
     "changeOrigin": true,
     "secure": false,
     "logLevel": "debug"

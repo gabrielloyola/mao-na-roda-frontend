@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatButtonModule,
          MatCheckboxModule,
          MatNativeDateModule,
@@ -19,7 +20,10 @@ import { MatButtonModule,
          MatInputModule,
          MatSlideToggleModule,
          MatButtonToggleModule,
-         MatSnackBarModule
+         MatSnackBarModule,
+         DateAdapter,
+         MAT_DATE_LOCALE,
+         MAT_DATE_FORMATS
         } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -58,6 +62,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatMomentDateModule,
     MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
@@ -84,7 +89,8 @@ const appRoutes: Routes = [
   providers: [
     ApiService,
     HttpClient,
-    SolvedFilterPipe
+    SolvedFilterPipe,
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
   ],
   bootstrap: [AppComponent]
 })

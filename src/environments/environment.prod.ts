@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
 
-  apiUrl: 'https://mao-na-roda-maycowmeira1.c9users.io'
+  apiUrl: 'https://200.134.10.32:3000'
 };

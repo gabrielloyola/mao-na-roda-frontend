@@ -26,7 +26,7 @@ export class ClusterMapComponent {
   private setup() {
     this.apiService.getProblems().subscribe(
       data => this.markers = data,
-      err => console.log(error)
+      err => console.log(err)
     );
   }
 }

@@ -43,7 +43,7 @@ export class HeatMapComponent implements OnInit {
           this.points.push(new google.maps.LatLng(marker.lat_inicio, marker.long_inicio));
         });
       },
-      err => console.error(err)
+      error => console.error(error)
     );
   }
 }

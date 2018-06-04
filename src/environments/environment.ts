@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
 
-  apiUrl: 'https://mao-na-roda-maycowmeira1.c9users.io' 
+  apiUrl: 'https://mao-na-roda-maycowmeira1.c9users.io'
 };

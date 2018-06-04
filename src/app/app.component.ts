@@ -3,7 +3,9 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { faGithub } from '@fortawesome/fontawesome-free-brands';
 import fontawesome from '@fortawesome/fontawesome';
-import { MatSnackBar } from '@angular/material';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepicker } from '@angular/material';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +14,9 @@ import { MatSnackBar } from '@angular/material';
 })
 export class AppComponent {
   public markers;
-  public filterForm: FormGroup;
-  public params = {
+  public filterMapForm: FormGroup;
+  public filterChartForm: FormGroup;
+  public mapParams = {
     prob_start: null,
     prob_end: null
   };
@@ -24,49 +27,60 @@ export class AppComponent {
     private apiService: ApiService
   ) {
     fontawesome.library.add(faGithub);
-    this.filterForm = this._fb.group({
+    this.filterMapForm = this._fb.group({
       solvedProblems: [true],
       unsolvedProblems: [true],
       problemsFrom: [null],
       problemsTo: [null]
     });
+    this.filterChartForm = this._fb.group({
+      initialMonth: [null],
+      endMonth: [null]
+    });
   }
 
   public onChangeDate() {
-    this.params.prob_start = this.filterForm.controls.problemsFrom.value;
-    this.params.prob_end = this.filterForm.controls.problemsTo.value;
-    this.apiService.loadProblems(this.params, this.slice);
+    this.mapParams.prob_start = this.filterMapForm.controls.problemsFrom.value;
+    this.mapParams.prob_end = this.filterMapForm.controls.problemsTo.value;
+    this.apiService.loadProblems(this.mapParams, this.slice);
   }
 
   public onChangeSolved(event) {
     if (event.checked) {
-      if (this.filterForm.controls.unsolvedProblems.value) {
+      if (this.filterMapForm.controls.unsolvedProblems.value) {
         this.slice = '';
       } else {
         this.slice = 'solved';
       }
     } else {
-      if (!this.filterForm.controls.unsolvedProblems.value) {
-        this.filterForm.controls.unsolvedProblems.setValue(true);
+      if (!this.filterMapForm.controls.unsolvedProblems.value) {
+        this.filterMapForm.controls.unsolvedProblems.setValue(true);
       }
       this.slice = 'unsolved';
     }
-    this.apiService.loadProblems(this.params, this.slice);
+    this.apiService.loadProblems(this.mapParams, this.slice);
   }
 
   public onChangeUnsolved(event) {
     if (event.checked) {
-      if (this.filterForm.controls.solvedProblems.value) {
+      if (this.filterMapForm.controls.solvedProblems.value) {
         this.slice = '';
       } else {
         this.slice = 'unsolved';
       }
     } else {
-      if (!this.filterForm.controls.solvedProblems.value) {
-        this.filterForm.controls.solvedProblems.setValue(true);
+      if (!this.filterMapForm.controls.solvedProblems.value) {
+        this.filterMapForm.controls.solvedProblems.setValue(true);
       }
       this.slice = 'solved';
     }
-    this.apiService.loadProblems(this.params, this.slice);
+    this.apiService.loadProblems(this.mapParams, this.slice);
+  }
+
+  public chosenMonthHandler(normlizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.filterChartForm.controls.initialMonth.value;
+    ctrlValue.month(normlizedMonth.month());
+    this.filterChartForm.controls.initialMonth.setValue(ctrlValue);
+    datepicker.close();
   }
 }
