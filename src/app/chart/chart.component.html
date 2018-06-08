@@ -1,5 +1,5 @@
 <mat-card class="graphic-card">
-  <mat-card-content *ngIf="lineChartData.length > 1">
+  <mat-card-content *ngIf="lineChartData">
       <canvas baseChart
         [datasets]="lineChartData"
         [labels]="lineChartLabels"
