@@ -8,7 +8,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { error } from 'util';
 import { MatSnackBar } from '@angular/material';
 import { SolvedFilterPipe } from './solved-filter.pipe';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 const API_URL = environment.apiUrl;
 const months = [
@@ -21,15 +20,12 @@ const months = [
 @Injectable()
 export class ApiService {
   private auth_token =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1MjgxNzUxODh9.xfWBimcKtl9aPOqkofVPV1FYHkxxrMo9Gg-1N66JPjE';
-  private returnUrl;
-  navigationSubscription;
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1Mjg1MjYyMDV9.B1junRKRF627Wx_L3Rjb5EfIYEwYOR-t3M73Vw8PJjU';
 
   constructor(
     private http: HttpClient,
     public snackBar: MatSnackBar,
-    public filter: SolvedFilterPipe,
-    public router: Router
+    public filter: SolvedFilterPipe
   ) {
     this.http.get(API_URL);
     this.loadProblems(null, '', false);
@@ -103,12 +99,6 @@ export class ApiService {
         this._frequenciesBS.next(frequencies);
         this._frequenciesLabelsBS.next(labels);
         if (showMessage) {
-          this.navigationSubscription = this.router.events.subscribe((e: any) => {
-            // If it is a NavigationEnd event re-initalise the component
-            if (e instanceof NavigationEnd) {
-              this.router.navigate(['/chart?refresh=1']);
-            }
-          });
           this.showFilterMessage();
         }
       },

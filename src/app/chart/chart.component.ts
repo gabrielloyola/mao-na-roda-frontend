@@ -44,7 +44,11 @@ export class ChartComponent {
       error => console.log(error)
     );
     this.apiService.getFrequenciesLabels().subscribe(
-      data => this.lineChartLabels = data,
+      data => {
+        setTimeout(() => {
+          this.lineChartLabels = data;
+        }, 0);
+      },
       error => console.log(error)
     );
   }
