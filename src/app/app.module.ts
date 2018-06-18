@@ -25,10 +25,12 @@ import { MatButtonModule,
          MAT_DATE_LOCALE,
          MAT_DATE_FORMATS
         } from '@angular/material';
+import { MomentModule } from 'angular2-moment';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -76,6 +78,7 @@ const appRoutes: Routes = [
     MatSlideToggleModule,
     MatButtonToggleModule,
     MatSnackBarModule,
+    MomentModule,
     FontAwesomeModule,
     ChartsModule,
     RouterModule.forRoot(
@@ -84,7 +87,8 @@ const appRoutes: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDS7Z96FryfrEI2XBCJEBnVKMY3Qw3tMcE'
     }),
-    AgmJsMarkerClustererModule
+    AgmJsMarkerClustererModule,
+    AgmSnazzyInfoWindowModule
   ],
   providers: [
     ApiService,

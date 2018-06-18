@@ -23,7 +23,7 @@ export class AppComponent {
   public chartParams = {
     freq_start: null,
     freq_end: null
-  }
+  };
   public slice;
 
   constructor(

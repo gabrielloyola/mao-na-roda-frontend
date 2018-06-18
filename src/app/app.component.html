@@ -55,6 +55,7 @@
               placeholder="De"
               (dateChange)="onChangeDate()"
               formControlName="problemsFrom"
+              (click)="pickerFrom.open()"
             >
             <mat-datepicker #pickerFrom></mat-datepicker>
           </mat-form-field>
@@ -67,6 +68,7 @@
               placeholder="Até"
               (dateChange)="onChangeDate()"
               formControlName="problemsTo"
+              (click)="pickerTo.open()"
             >
             <mat-datepicker
               #pickerTo
@@ -85,7 +87,7 @@
     >
       <mat-card-title>Filtrar gráfico</mat-card-title>
       <mat-card-content fxLayout="column" fxLayoutGap="25px">
-        <mat-card-subtitle>Mês inicial</mat-card-subtitle>
+        <mat-card-subtitle>Período inicial</mat-card-subtitle>
         <mat-form-field>
           <mat-datepicker-toggle matSuffix [for]="pickerInitialMonth"></mat-datepicker-toggle>
           <input
@@ -93,6 +95,7 @@
             [matDatepicker]="pickerInitialMonth"
             (dateChange)="onChangeMonth()"
             formControlName="initialMonth"
+            (click)="pickerInitialMonth.open()"
           >
           <mat-datepicker
             #pickerInitialMonth
@@ -101,7 +104,7 @@
             (monthSelected)="chosenMonthHandler($event, pickerInitialMonth)"
           ></mat-datepicker>
         </mat-form-field>
-        <mat-card-subtitle>Mês final</mat-card-subtitle>
+        <mat-card-subtitle>Período final</mat-card-subtitle>
         <mat-form-field>
           <mat-datepicker-toggle matSuffix [for]="pickerEndMonth"></mat-datepicker-toggle>
           <input
@@ -109,6 +112,7 @@
             [matDatepicker]="pickerEndMonth"
             (dateChange)="onChangeMonth()"
             formControlName="endMonth"
+            (click)="pickerEndMonth.open()"
           >
           <mat-datepicker
             #pickerEndMonth

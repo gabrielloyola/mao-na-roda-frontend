@@ -10,6 +10,10 @@
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/@agm/js-marker-clusterer/-/js-marker-clusterer-1.0.0-beta.2.tgz#3b4d0e950b4150d15fc7f523c8a9f48fc60cac2e"
 
+"@agm/snazzy-info-window@^1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@agm/snazzy-info-window/-/snazzy-info-window-1.0.0-beta.3.tgz#0860b61745eb32ebb4817e3ff1426e459bbfe3d2"
+
 "@angular-devkit/build-optimizer@0.3.2":
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.3.2.tgz#77d4d1e4fcd09575f0200e2d6d21c1a3f995096f"

@@ -2,7 +2,19 @@
   <mat-card-content>
     <agm-map [latitude]="mapConfig.lat" [longitude]="mapConfig.lng" [zoom]="mapConfig.zoom">
       <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
-        <agm-marker *ngFor="let marker of markers" [latitude]="marker.lat_inicio" [longitude]="marker.long_inicio"></agm-marker>
+        <agm-marker *ngFor="let marker of markers" [latitude]="marker.lat_inicio" [longitude]="marker.long_inicio">
+          <agm-snazzy-info-window class="marker" ngClass="'solved': marker.solution" [closeWhenOthersOpen]="true">
+            <ng-template>
+              <div class="marker-infos" fxFlex="column">
+                <h4>{{ marker.descricao }}</h4>
+                <p>Reportado por: {{ marker.usuario.nome }}</p>
+                <div *ngIf="marker.solucao" class="solution-infos">
+                  <span>Solucionado em: {{ marker.solucao.data_hora | amDateFormat:'DD/MM/YYYY' }}</span>
+                </div>
+              </div>
+            </ng-template>
+          </agm-snazzy-info-window>
+        </agm-marker>
       </agm-marker-cluster>
     </agm-map>
   </mat-card-content>
